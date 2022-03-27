@@ -1,0 +1,202 @@
+$auth-1-inner-max-width: 400px !default;
+
+.first-col {
+  position: absolute;
+  right: 5px;
+  margin: 0;
+}
+
+.search-box {
+  width: 200px;
+  margin-right: 1rem;
+}
+
+.setting-table {
+  .rdt_TableRow {
+    font-size: 14px;
+    min-height: 58px;
+    display: inline-flex;
+
+    .rdt_TableCell {
+      padding: 0;
+
+      .cell-container {
+        min-height: 58px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        padding: 10px 5px 10px 10px;
+
+        .item-name-wrapper {
+          display: flex;
+          flex-wrap: nowrap;
+          align-items: center;
+          justify-content: flex-start;
+          max-width: 100%;
+          padding-right: 10px;
+
+          .item-name {
+            font-size: 20px;
+            font-weight: 500;
+            line-height: 26px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+            flex-grow: 1;
+          }
+        }
+
+        .action-button-wrapper {
+          display: none;
+          flex-wrap: nowrap;
+          align-items: center;
+          justify-content: flex-end;
+          padding: 0;
+        }
+
+        .cell-title {
+          font-size: 10px;
+          font-weight: 700;
+          text-transform: uppercase;
+        }
+
+        .cell-content {
+          flex-basis: 100%;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          width: 100%;
+          align-items: center;
+        }
+
+        &.item-disabled {
+          .cell-content {
+            opacity: 0.5;
+          }
+
+          .cell-title {
+            opacity: 0.5;
+          }
+
+          .item-name-wrapper {
+            opacity: 0.5;
+          }
+        }
+      }
+
+      &:first-child {
+        .cell-container {
+          justify-content: space-between;
+          flex-wrap: nowrap;
+        }
+      }
+    }
+
+    &:hover {
+      .rdt_TableCell {
+        .cell-container {
+          .item-name-wrapper {
+            overflow: hidden;
+            white-space: nowrap;
+          }
+
+          .action-button-wrapper {
+            display: inline-flex;
+            min-width: 162px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.clinic-settings {
+  //clinicSettings: UsersAccount
+  .description-text {
+    color: #b9b9c3;
+    font-size: 12px;
+    line-height: 13px;
+    margin-top: 7px;
+  }
+
+  //clinicSettings: Roles
+  .clinic-roles-custom-radio-input {
+    //for the denied radio button
+    padding-left: 0.8rem !important;
+  }
+
+  .modal-header {
+    height: 60px;
+    display: flex;
+    align-items: center;
+  }
+
+  .modal-body {
+    height: 522px;
+    overflow-y: auto;
+
+    &.property {
+      height: 442px;
+    }
+  }
+
+  .card {
+    height: auto !important;
+  }
+
+  .card-body {
+    flex: none;
+    min-height: 500px;
+  }
+
+  //clinicSettings: Groups
+  .clinic-groups-permission-items {
+    &.item-disabled {
+      h6.item-name {
+        opacity: 0.5;
+      }
+    }
+  }
+}
+
+.patientInfoRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  min-height: 24px;
+  .patient {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin-left: 0.5rem;
+    .patient-name {
+      font-size: 14px;
+      font-weight: bold;
+      @include media-breakpoint-down(lg) {
+        font-size: 14px;
+      }
+    }
+    .patient-subtext {
+      font-size: 12px;
+      @include media-breakpoint-down(lg) {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.custom-add-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 38px;
+  padding: 0.5em 0;
+  font-weight: 500;
+  font-size: 11px;
+  border-radius: 0.35rem;
+}

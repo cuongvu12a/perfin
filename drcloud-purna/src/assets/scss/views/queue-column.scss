@@ -1,0 +1,96 @@
+.queue-column-container {
+  width: 100%;
+
+  .queue-title {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    @include media-breakpoint-down(sm) {
+      font-size: $h4-font-size;
+    }
+  }
+  .queue-pill {
+    margin-left: 1rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 15px;
+  }
+  .queue-column {
+    padding: 0.5715rem;
+    background-color: white;
+    border-radius: 0.4rem;
+    box-shadow: none;
+    .sortable {
+      min-height: 7rem;
+      .appointment-card {
+        padding: 0.5715rem;
+        background-color: #f8f8f8;
+        border-radius: 0.375rem;
+        .appointment-card-row-first {
+          display: flex;
+          flex-direction: row;
+          justify-content: start;
+          align-items: start;
+          margin-bottom: 0.5715rem;
+          min-height: 24px;
+
+          @include media-breakpoint-down(md) {
+            flex-direction: column;
+          }
+          .appointment-badge {
+            margin-left: auto;
+            padding-top: 0.571rem;
+            padding-bottom: 0.571rem;
+            padding-left: 1.429rem;
+            padding-right: 1.429rem;
+            border-radius: 16px;
+
+            @include media-breakpoint-down(md) {
+              margin-left: 0px;
+            }
+          }
+        }
+        .appointment-card-row {
+          display: flex;
+          flex-direction: row;
+          justify-content: start;
+          align-items: center;
+          margin-bottom: 0.5715rem;
+          min-height: 24px;
+          .patient {
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            margin-left: 0.5rem;
+            .patient-name {
+              font-size: 18px;
+              font-weight: bold;
+              @include media-breakpoint-down(lg) {
+                font-size: 14px;
+              }
+            }
+            .patient-subtext {
+              font-size: 14px;
+              @include media-breakpoint-down(lg) {
+                font-size: 12px;
+              }
+            }
+          }
+        }
+      }
+      div:not(:last-child) {
+        margin-bottom: 0.5rem;
+      }
+
+      .sortable-chosen.sortable-ghost {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+.queue-column-container:not(:last-child) {
+  margin-right: 1rem;
+}

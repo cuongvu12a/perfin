@@ -1,0 +1,105 @@
+.right-slidebar {
+  position: fixed;
+  top: 4.45rem;
+  bottom: 0;
+  left: auto;
+  z-index: 1051;
+  width: 500px;
+  right: -501px;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  transition: right 0.12s cubic-bezier(0.05, 0.74, 0.2, 0.99);
+  background-color: $white;
+
+  @include media-breakpoint-down(xs) {
+    width: 400px;
+    right: -401px;
+  }
+
+  &.show {
+    box-shadow: 0 15px 30px 0 rgba($black, 0.11), 0 5px 15px 0 rgba($black, 0.08);
+    right: 0;
+  }
+
+  .right-slidebar-header {
+    background-color: $body-bg;
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+
+    //customizer close button
+    .close {
+      position: absolute;
+      right: 0.6rem;
+      top: 0.6rem;
+      padding: 7px;
+      width: auto;
+      z-index: 10;
+      color: $headings-color;
+      i,
+      svg {
+        font-size: 1.5rem;
+        height: 1.5rem;
+        width: 1.5rem;
+      }
+    }
+
+    .slide-bar-tabs {
+      margin-left: -1.4rem;
+      margin-bottom: 0;
+      width: auto;
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    .slide-bar-header-btn {
+      margin-right: 1.4rem;
+    }
+  }
+
+  // customizer content height
+  .right-slidebar-content {
+    position: relative;
+    height: 100%;
+
+    .modal-body {
+      height: calc(100vh - 212px);
+      overflow-y: auto;
+    }
+  }
+
+  // theme color box styles
+  .color-box {
+    height: 24px;
+    width: 24px;
+    margin: 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    position: relative;
+    &.selected {
+      &:after {
+        content: '';
+        border: 1px solid $primary;
+        height: 30px;
+        width: 30px;
+        top: -3px;
+        left: -3px;
+        position: absolute;
+        border-radius: 0.5rem;
+      }
+      &.border {
+        &:after {
+          top: -4px;
+          left: -4px;
+        }
+      }
+    }
+  }
+}

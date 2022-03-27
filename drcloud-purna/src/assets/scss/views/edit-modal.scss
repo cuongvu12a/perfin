@@ -1,0 +1,39 @@
+.modal-edit-schedule {
+  .modal-body {
+    min-height: 550px;
+  }
+
+  .custom-repeat-label {
+    width: 82px;
+    margin-right: 1rem;
+  }
+
+  .custom-repeat-input {
+    width: 82px;
+    margin-right: 0.5rem;
+  }
+
+  .custom-repeat-select {
+    width: 120px;
+    margin-right: 0.5rem;
+  }
+
+  .btn-toggle {
+    &:hover {
+      box-shadow: none !important;
+    }
+  }
+
+  .custom-repeat-check {
+    min-width: 64px;
+    margin-right: 1rem;
+  }
+  
+  .form-check-input {
+    margin-top: 0.2rem;
+  }
+
+  .w-170 {
+    width: 170px;
+  }
+}

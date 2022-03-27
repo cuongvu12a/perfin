@@ -1,0 +1,503 @@
+/*================================================================================
+	Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
+	Version: 2.0
+	Author: PIXINVENT
+	Author URL: http://www.themeforest.net/user/pixinvent
+================================================================================
+
+NOTE:
+------
+PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
+WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+
+// Core variables and mixins
+@import '../../@core/scss/base/bootstrap-extended/include'; // Bootstrap includes
+@import '../../@core/scss/base/components/include'; // Components includes
+@import '../../@core/scss/react/libs/toastify/toastify.scss';
+@import './views/edit-modal.scss';
+@import './views/clinic.scss';
+@import './views/queue-column.scss';
+@import './views/right-slide-table.scss';
+@import './views/appointment-detail.scss';
+@import './views/dropdown-notification.scss';
+@import './views/right-slidebar.scss';
+@import './views/in-progress.scss';
+@import 'nprogress/nprogress.css';
+
+.modal {
+  .result-sheet .card {
+    height: auto;
+    margin-bottom: 1rem;
+  }
+  .card {
+    margin-bottom: 0;
+    height: 500px;
+
+    @include media-breakpoint-down(xs) {
+      height: auto;
+    }
+  }
+
+  .modal-slide {
+    position: absolute;
+    top: 4.45rem;
+
+    @include media-breakpoint-down(xs) {
+      width: 100%;
+    }
+
+    .modal-header {
+      margin-bottom: 1rem;
+      padding-bottom: 0 !important;
+
+      .slide-bar-tabs {
+        margin-left: -1.4rem;
+        margin-bottom: 0;
+      }
+
+      .slide-bar-header-btn {
+        margin-right: 1.4rem;
+      }
+    }
+
+    .modal-body {
+      margin: 0;
+    }
+  }
+
+  .modal-dialog {
+    .modal-content {
+      overflow: hidden;
+      .sidebar-right {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: auto;
+        z-index: 210;
+        width: 400px;
+        height: 100%;
+        right: -401px;
+        transition: right 0.15s ease-in-out;
+
+        @include media-breakpoint-down(xs) {
+          width: 100%;
+        }
+
+        .modal-sidebar {
+          border-top-right-radius: $border-radius-sm;
+          border-bottom-right-radius: $border-radius-sm;
+          background-color: $white;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          .modal-body {
+            overflow-y: auto;
+          }
+          .password-sidebar-form {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+          }
+        }
+
+        &.show {
+          right: 0;
+        }
+      }
+      .body-content-overlay {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: absolute;
+        display: block;
+        z-index: 4;
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.15s ease;
+        &.show {
+          visibility: visible;
+          transition: all 0.15s ease;
+          opacity: 1;
+          background-color: rgba($black, 0.2);
+          border-radius: $border-radius/2;
+        }
+      }
+    }
+  }
+}
+
+.app-content {
+  .card {
+    min-height: calc(100vh - 170px);
+
+    .card-title {
+      font-size: 1.5rem;
+    }
+
+    &.with-sidebar {
+      height: 100%;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      margin-bottom: 0;
+    }
+
+    &.appointment-table-container {
+      min-height: 720px;
+    }
+
+    &.kanban {
+      background-color: #ebe9f1;
+    }
+  }
+}
+
+// Dialog popup
+.animate__animated.animate__fadeIn {
+  --animate-duration: 500ms;
+}
+
+// Nav button
+.nav-pills .nav-link.active {
+  box-shadow: none;
+}
+
+// Date picker
+.date-picker {
+  .date-picker-input {
+    .form-control[readonly] {
+      background-color: inherit;
+      opacity: 1;
+    }
+
+    .input-group-text {
+      cursor: pointer;
+    }
+  }
+
+  .date-picker-position {
+    position: absolute;
+    height: 0;
+    z-index: 9;
+    margin-top: 3px;
+
+    .rdrDateRangePickerWrapper {
+      border-radius: $card-border-radius;
+      box-shadow: $box-shadow;
+      overflow: hidden;
+
+      .rdrCalendarWrapper {
+        border-radius: 0;
+        box-shadow: none;
+      }
+    }
+
+    .rdrCalendarWrapper {
+      border-radius: $card-border-radius;
+      box-shadow: $box-shadow;
+    }
+  }
+
+  .date-picker-position.calendar {
+    margin-top: -12px;
+  }
+
+  &.top {
+    .date-picker-position {
+      margin-top: -458px;
+    }
+
+    .date-picker-position.calendar {
+      margin-top: -348px;
+    }
+  }
+
+  &.disabled {
+    .date-picker-input {
+      .form-control[readonly] {
+        background-color: #efefef;
+        opacity: 1;
+      }
+
+      .input-group-text {
+        background-color: #efefef;
+        cursor: default;
+      }
+    }
+  }
+  @include media-breakpoint-down(xs) {
+    .rdrDefinedRangesWrapper {
+      display: none;
+    }
+    .rdrCalendarWrapper.rdrDateRangeWrapper {
+      width: 300px;
+    }
+    .rdrMonth {
+      max-width: 100%;
+    }
+  }
+}
+
+// Sweet alert
+.swal2-container {
+  .swal2-radio {
+    label:not(:last-child) {
+      margin-bottom: 0.75rem;
+    }
+  }
+
+  .cancel-dialog-input {
+    margin-top: 1rem;
+    &:focus {
+      border: 1px solid;
+      box-shadow: 0px 0px white;
+    }
+  }
+
+  .cancel-dialog-validate-message {
+    justify-content: start !important;
+    background-color: white;
+    color: $danger !important;
+    margin-top: 0.5rem;
+    margin-left: 0rem;
+    margin-right: 0rem;
+    padding: 0rem;
+
+    &::before {
+      display: none !important;
+    }
+  }
+}
+
+.badge {
+  &.badge-status-appointment {
+    line-height: 14px;
+
+    &.badge.badge-light-primary {
+      background-color: white;
+      border: solid 1px #7367f0;
+    }
+
+    &.badge.badge-light-secondary {
+      background-color: white;
+      border: solid 1px $secondary;
+    }
+  }
+}
+
+// Full calendar
+.app-calendar {
+  .fc .fc-timegrid-event .fc-event-title-container {
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+
+  .fc-event {
+    &:hover {
+      border-color: $primary;
+    }
+    &.selected {
+      border-color: $primary;
+    }
+  }
+}
+
+.scroll-menu {
+  position: absolute;
+  right: 260px !important;
+  display: inherit;
+}
+
+.sidebar-wrapper {
+  .list-group-item {
+    padding: 0.58rem 0;
+    font-weight: 500;
+    border: 0;
+    border-radius: 0;
+    border-left: 2px solid transparent;
+
+    .bullet {
+      min-width: 10px;
+      margin-top: 5px;
+    }
+
+    &:hover {
+      background-color: inherit;
+    }
+  }
+}
+
+.Toastify__toast {
+  &.Toastify__toast--error {
+    .toastify-error-text {
+      display: -webkit-box;
+      max-width: 220px;
+      word-wrap: break-word;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.react-dataTable {
+  .table-header {
+    background-color: $table-head-bg;
+    border-top: 1px solid;
+    border-color: $border-color;
+    min-height: 0;
+    height: 38px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    &.col {
+      padding: 0.72rem 1.5rem;
+      .header-name {
+        color: $body-color;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+        font-size: 12px;
+        text-transform: uppercase;
+        &:hover {
+          color: $body-color;
+        }
+      }
+    }
+  }
+
+  .table-cell {
+    display: flex;
+    align-items: center;
+    height: 53px;
+    padding: 0.72rem 1.5rem;
+
+    .cell-name {
+      font-size: 12px;
+    }
+  }
+
+  .appointment-table-cell {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .icon-button {
+    cursor: pointer;
+    &:hover {
+      opacity: 0.5;
+    }
+
+    &.sort-button {
+      cursor: grab;
+    }
+  }
+}
+
+// Avatar Wrapper
+.avatar-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0rem !important;
+
+  .title-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    margin-left: 0.5rem;
+
+    &.sm {
+      max-width: 150px;
+    }
+    &.md {
+      max-width: 270px;
+    }
+    &.lg {
+      max-width: 294px;
+    }
+    .sub-title-md,
+    .sub-title-sm {
+      font-size: 10px;
+      line-height: 13px;
+    }
+
+    .title-sm {
+      font-size: 11px;
+      line-height: 13px;
+    }
+  }
+}
+
+// Image Upload
+.image-wrapper {
+  .image-upload {
+    position: relative;
+  }
+
+  .image-upload:after,
+  .image-upload:before {
+    position: absolute;
+    opacity: 0;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+  }
+
+  .image-upload:after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    display: flex;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    background: rgba(44, 44, 44, 0.6);
+    border-radius: 50% !important;
+    cursor: pointer;
+  }
+
+  .overlay-icon {
+    opacity: 0;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    cursor: pointer;
+  }
+
+  .image-upload:hover {
+    .overlay-icon {
+      opacity: 1;
+    }
+  }
+
+  .image-upload:hover:after,
+  .image-upload:hover:before {
+    opacity: 1;
+  }
+}
+
+// Nprogress
+#nprogress .bar {
+  background-color: $purple;
+}
+
+// Version
+.version {
+  display: flex;
+  justify-content: center;
+  color: $secondary;
+  font-size: 12px;
+  padding-top: 9.52px;
+  padding-bottom: 9.52px;
+}

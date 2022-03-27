@@ -1,0 +1,88 @@
+image: docker:stable
+services:
+  - docker:dind
+
+variables:
+  APP_NAME: drcloud-purna
+  IMAGE_TAG_COMMIT: ${CI_REGISTRY_IMAGE}/$CI_COMMIT_REF_NAME:${CI_COMMIT_SHA}
+  IMAGE_TAG_LATEST: ${CI_REGISTRY_IMAGE}/$CI_COMMIT_REF_NAME:latest
+  DOCKERFILE: ci-cd/${CI_ENVIRONMENT_NAME}/Dockerfile
+  DIR_HELMCHART: /home/deploy/helmchart-drcloud
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ""
+  DOCKER_BUILDKIT: 1
+
+stages:
+    - build
+    - deploy
+
+build_staging:
+  environment: staging
+  stage: build
+  tags:
+    - docker
+    - build
+    - non-prod
+  only:
+    - staging
+  before_script:
+    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" "$CI_REGISTRY"
+  script:
+    - docker build -f $DOCKERFILE --cache-from $IMAGE_TAG_LATEST --build-arg BUILDKIT_INLINE_CACHE=1 --tag $IMAGE_TAG_COMMIT .
+    - docker tag $IMAGE_TAG_COMMIT $IMAGE_TAG_LATEST
+    - docker push $IMAGE_TAG_COMMIT
+    - docker push $IMAGE_TAG_LATEST
+
+deploy_staging:
+  environment: staging
+  stage: deploy
+  only:
+    - staging
+  tags:
+    - shell
+    - non-prod
+    - k8s
+  script:
+    - cd ${DIR_HELMCHART}
+    - git fetch
+    - git reset --hard origin/main
+    - sudo helm upgrade -i $APP_NAME applications/$APP_NAME -f applications/envValues/valuesStg.yaml -n $CI_ENVIRONMENT_NAME --create-namespace --set $APP_NAME.version=$CI_COMMIT_SHA
+  when: on_success
+
+build-production:
+    variables:
+        REACT_APP_ENV: 'production'
+        REACT_APP_API_URL: 'https://api.drcloud.vn'
+    stage: build
+    script:
+        - echo "SKIP_PREFLIGHT_CHECK=true" >> .env
+        - echo "BUILD_PATH='$publish_path/app.drcloud.vn'" >> .env
+        - echo "REACT_APP_BASENAME=''" >> .env
+        - echo "REACT_APP_ENV=$REACT_APP_ENV" >> .env
+        - echo "REACT_APP_API_URL=$REACT_APP_API_URL" >> .env
+        - echo "REACT_APP_FIREBASE_VAPID_KEY=BDw1vAeiA9a5pkBch3BqZ_brLMwp4-D1j9kBhM6WpI0nK3AZ_q5wkDf3joLsrO4ZVzBIczIqYRxNqIET1DSaGIk" >> .env
+        - yarn
+        - yarn build
+    artifacts:
+        paths:
+        - $publish_path
+        expire_in: '1 hrs'
+    tags:
+        - frontend
+        - production  
+    only:
+        - main
+
+deploy-production:
+    stage: deploy
+    script:
+        - sudo cp -fRv $publish_path/app.drcloud.vn $deploy_path
+    only:
+        - main
+    tags:
+        - frontend
+        - production
+    needs: [build-production]
+    when: manual
+    dependencies:
+        - build-production

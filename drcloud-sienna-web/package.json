@@ -1,0 +1,70 @@
+{
+  "name": "drcloud-anna",
+  "author": "Perfin",
+  "version": "1.0.0",
+  "private": false,
+  "scripts": {
+    "eslint": "eslint ./src",
+    "eslint-fix": "eslint --fix ./src",
+    "start": "react-app-rewired start",
+    "build:staging": "env-cmd -f .env.staging react-app-rewired build",
+    "build:production": "env-cmd -f .env.production react-app-rewired build",
+    "serve": "serve -s build -l 6002",
+    "test": "react-app-rewired test",
+    "eject": "react-scripts eject",
+    "lint": "eslint ./",
+    "lint-fix": "eslint ./ --fix"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@emotion/react": "11.5.0",
+    "@emotion/styled": "11.3.0",
+    "@hookform/resolvers": "^2.8.8",
+    "@mui/icons-material": "5.0.5",
+    "@mui/lab": "5.0.0-alpha.54",
+    "@mui/material": "5.0.6",
+    "@mui/styles": "5.0.2",
+    "axios": "0.24.0",
+    "chart.js": "3.6.0",
+    "history": "5.0.1",
+    "lodash": "4.17.21",
+    "moment": "2.29.1",
+    "nprogress": "0.2.0",
+    "prop-types": "15.7.2",
+    "react": "17.0.2",
+    "react-chartjs-2": "3.3.0",
+    "react-dom": "17.0.2",
+    "react-feather": "2.0.9",
+    "react-helmet": "6.1.0",
+    "react-hook-form": "^7.28.0",
+    "react-hook-geolocation": "^1.0.11",
+    "react-perfect-scrollbar": "1.5.8",
+    "react-router": "6.0.0-beta.8",
+    "react-router-dom": "6.0.0-beta.8",
+    "react-scripts": "4.0.3",
+    "use-debounce": "^7.0.1",
+    "uuid": "8.3.2",
+    "xlsx": "0.17.4",
+    "yup": "0.32.11"
+  },
+  "devDependencies": {
+    "env-cmd": "^10.1.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "react-app-rewire-aliases": "^0.2.0",
+    "react-app-rewired": "^2.1.8"
+  }
+}
